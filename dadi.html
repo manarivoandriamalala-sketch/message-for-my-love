@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pour toi 💖</title>
+    <style>
+        body {
+            background: linear-gradient(135deg, #ffafbd, #ffc3a0);
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .love-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            text-align: center;
+            max-width: 400px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .heart {
+            font-size: 50px;
+            color: #ff6b6b;
+            animation: heartbeat 1.5s infinite;
+            margin-bottom: 20px;
+        }
+        
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        h1 {
+            color: #ff6b6b;
+            margin-bottom: 20px;
+        }
+        
+        .message {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #333;
+            margin-bottom: 25px;
+        }
+        
+        .secret-btn {
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .secret-btn:hover {
+            background: #ff5252;
+            transform: translateY(-2px);
+        }
+        
+        .hidden-message {
+            display: none;
+            margin-top: 20px;
+            padding: 15px;
+            background: #fff5f5;
+            border-radius: 10px;
+            border-left: 4px solid #ff6b6b;
+        }
+        
+        .floating-hearts {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+        
+        .floating-heart {
+            position: absolute;
+            font-size: 20px;
+            opacity: 0;
+            animation: float 5s linear infinite;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(100px) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="love-card">
+        <div class="heart">💖</div>
+        
+        <h1>Pour toi...</h1>
+        
+        <div class="message">
+            Chaque fois que je pense à toi, mon cœur s'emballe un peu plus fort. 
+            Tu es la plus belle chose qui me soit arrivée.
+        </div>
+        
+        <button class="secret-btn" onclick="revealSecret()">📩 Message secret</button>
+        
+        <div class="hidden-message" id="secretMessage">
+            <strong>Mon cœur bat pour toi 💘</strong><br>
+            Et chaque jour à tes côtés est un nouveau bonheur...
+        </div>
+        
+        <div class="floating-hearts" id="heartsContainer"></div>
+    </div>
+
+    <script>
+        function revealSecret() {
+            const message = document.getElementById('secretMessage');
+            const btn = document.querySelector('.secret-btn');
+            
+            message.style.display = 'block';
+            btn.textContent = '💌 Message envoyé !';
+            btn.style.background = '#4CAF50';
+            
+            createHearts(10);
+            
+            // Petit effet de confettis
+            setTimeout(() => {
+                createHearts(15);
+            }, 500);
+        }
+        
+        function createHearts(count) {
+            const container = document.getElementById('heartsContainer');
+            const hearts = ['💖', '💘', '💝', '💕', '💓'];
+            
+            for (let i = 0; i < count; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'floating-heart';
+                heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDelay = Math.random() * 2 + 's';
+                heart.style.fontSize = (15 + Math.random() * 15) + 'px';
+                
+                container.appendChild(heart);
+                
+                // Supprimer après l'animation
+                setTimeout(() => {
+                    heart.remove();
+                }, 5000);
+            }
+        }
+        
+        // Quelques cœurs au démarrage
+        createHearts(5);
+    </script>
+</body>
+</html>
